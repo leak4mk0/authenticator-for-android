@@ -1,8 +1,9 @@
 Google Authenticator for Android (open source version)
 ======================================================
 Copyright 2010 Google Inc.
+Copyright 2015 leak4mk0.
 
-https://github.com/google/google-authenticator-android
+https://github.com/leak4mk0/authenticator-for-android
 
 This project is an older fork of the one on the Play store. It's an older
 version that doesn't get changes synced to it from the Play store version.
@@ -23,3 +24,7 @@ specified in [RFC 4226](https://tools.ietf.org/html/rfc4226) and the Time-based
 One-time Password (TOTP) algorithm specified in [RFC 6238](https://tools.ietf.org/html/rfc6238).
 
 Further documentation is available in the [Wiki](https://github.com/google/google-authenticator/wiki).
+
+Difference
+----------
+This fork supports SONY SmartWatch 2.

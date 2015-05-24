@@ -13,8 +13,20 @@ android {
         testInstrumentationRunner "android.test.InstrumentationTestRunner"
     }
 
+    signingConfigs {
+        playStore {
+            storeFile file(leak4mk0_key_store_file)
+            storePassword leak4mk0_key_store_password
+            keyAlias leak4mk0_authenticator_key_alias
+            keyPassword leak4mk0_authenticator_key_password
+        }
+    }
+
     productFlavors {
         playStore {
+            applicationId "net.leak4mk0.authenticator2"
+            testApplicationId "net.leak4mk0.authenticator2.tests"
+            signingConfig signingConfigs.playStore
         }
         openSource {
             applicationId "com.google.android.apps.authenticator2.os"
@@ -42,4 +54,8 @@ android {
         androidTestCompile "com.google.dexmaker:dexmaker:1.2"
         androidTestCompile "com.google.dexmaker:dexmaker-mockito:1.2"
     }
+}
+
+dependencies {
+    compile project(':SmartExtensionUtils')
 }

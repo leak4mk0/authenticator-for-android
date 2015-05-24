@@ -1,1 +1,3 @@
-include ':AuthenticatorApp'
+include ':AuthenticatorApp', ':SmartExtensionAPI', ':SmartExtensionUtils'
+project(':SmartExtensionAPI').projectDir = new File('sdk/SmartExtensionAPI')
+project(':SmartExtensionUtils').projectDir = new File('sdk/SmartExtensionUtils')

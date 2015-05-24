@@ -14,24 +14,25 @@
      limitations under the License.
 -->
 
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.google.android.apps.authenticator2"
-          android:versionCode="21" android:versionName="2.21">
-
-  <uses-sdk android:minSdkVersion="7" android:targetSdkVersion="14" />
+<manifest package="com.google.android.apps.authenticator2"
+          xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
+          android:versionCode="22"
+          android:versionName="2.22">
 
   <uses-permission android:name="android.permission.VIBRATE" />
   <uses-permission android:name="android.permission.INTERNET" />
+  <uses-permission android:name="com.sonyericsson.extras.liveware.aef.EXTENSION_PERMISSION" />
 
   <!--
   NOTE: android:allowBackup is set to false below to prevent the key material from being extracted
   from the device using various backup methods (e.g., adb backup introduced in ICS).
   -->
-  <application android:label="@string/app_name_short"
+  <application android:name="com.google.android.apps.authenticator.AuthenticatorApplication"
+               android:allowBackup="false"
                android:icon="@drawable/ic_launcher_authenticator"
-               android:theme="@style/AuthenticatorTheme"
-               android:name="com.google.android.apps.authenticator.AuthenticatorApplication"
-               android:allowBackup="false">
+               android:label="@string/app_name_short"
+               android:theme="@style/AuthenticatorTheme">
 
     <activity android:name="com.google.android.apps.authenticator.AuthenticatorActivity"
               android:label="@string/app_name_short"
@@ -42,8 +43,10 @@
       </intent-filter>
       <intent-filter>
         <action android:name="android.intent.action.VIEW" />
+
         <category android:name="android.intent.category.DEFAULT" />
         <category android:name="android.intent.category.BROWSABLE" />
+
         <data android:scheme="otpauth" />
       </intent-filter>
     </activity>
@@ -64,25 +67,63 @@
               android:label="@string/main_preference_screen_title" />
 
     <activity android:name="com.google.android.apps.authenticator.howitworks.IntroEnterPasswordActivity"
-              android:theme="@style/AuthenticatorTheme.NoTitleBar"
-              android:label="@string/howitworks_page_enter_password_title" />
+              android:label="@string/howitworks_page_enter_password_title"
+              android:theme="@style/AuthenticatorTheme.NoTitleBar" />
     <activity android:name="com.google.android.apps.authenticator.howitworks.IntroEnterCodeActivity"
-              android:theme="@style/AuthenticatorTheme.NoTitleBar"
-              android:label="@string/howitworks_page_enter_code_title" />
+              android:label="@string/howitworks_page_enter_code_title"
+              android:theme="@style/AuthenticatorTheme.NoTitleBar" />
     <activity android:name="com.google.android.apps.authenticator.howitworks.IntroVerifyDeviceActivity"
-              android:theme="@style/AuthenticatorTheme.NoTitleBar"
-              android:label="@string/howitworks_page_verify_device_title" />
+              android:label="@string/howitworks_page_verify_device_title"
+              android:theme="@style/AuthenticatorTheme.NoTitleBar" />
 
     <activity android:name="com.google.android.apps.authenticator.timesync.SettingsTimeCorrectionActivity"
               android:label="@string/timesync_preference_screen_title" />
 
     <activity android:name="com.google.android.apps.authenticator.timesync.AboutActivity"
-              android:theme="@style/AuthenticatorTheme.NoTitleBar"
-              android:label="@string/timesync_about_feature_screen_title" />
+              android:label="@string/timesync_about_feature_screen_title"
+              android:theme="@style/AuthenticatorTheme.NoTitleBar" />
 
     <activity android:name="com.google.android.apps.authenticator.timesync.SyncNowActivity"
-              android:theme="@android:style/Theme.Translucent.NoTitleBar"
-              android:label="@string/timesync_sync_now_screen_title" />
+              android:label="@string/timesync_sync_now_screen_title"
+              android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+    <service android:name="net.leak4mk0.authenticator.sw2.WatchExtensionService" />
+    <service android:name="com.sonyericsson.extras.liveware.extension.util.TunnelService"
+             tools:ignore="ExportedService">
+      <intent-filter>
+        <action android:name="com.sonyericsson.extras.liveware.aef.tunnel.action.BIND" />
+      </intent-filter>
+    </service>
+
+    <receiver android:name="net.leak4mk0.authenticator.sw2.WatchExtensionReceiver"
+              tools:ignore="ExportedReceiver">
+      <intent-filter>
+        <action android:name="com.sonyericsson.extras.liveware.aef.registration.EXTENSION_REGISTER_REQUEST" />
+        <action android:name="com.sonyericsson.extras.liveware.aef.registration.ACCESSORY_CONNECTION" />
+        <action android:name="android.intent.action.LOCALE_CHANGED" />
+        <action android:name="com.sonyericsson.extras.liveware.aef.notification.VIEW_EVENT_DETAIL" />
+        <action android:name="com.sonyericsson.extras.liveware.aef.notification.REFRESH_REQUEST" />
+        <action android:name="com.sonyericsson.extras.aef.widget.START_REFRESH_IMAGE_REQUEST" />
+        <action android:name="com.sonyericsson.extras.aef.widget.STOP_REFRESH_IMAGE_REQUEST" />
+        <action android:name="com.sonyericsson.extras.aef.widget.ONTOUCH" />
+        <action android:name="com.sonyericsson.extras.liveware.extension.util.widget.scheduled.refresh" />
+        <action android:name="com.sonyericsson.extras.aef.control.START" />
+        <action android:name="com.sonyericsson.extras.aef.control.STOP" />
+        <action android:name="com.sonyericsson.extras.aef.control.PAUSE" />
+        <action android:name="com.sonyericsson.extras.aef.control.RESUME" />
+        <action android:name="com.sonyericsson.extras.aef.control.ERROR" />
+        <action android:name="com.sonyericsson.extras.aef.control.KEY_EVENT" />
+        <action android:name="com.sonyericsson.extras.aef.control.TOUCH_EVENT" />
+        <action android:name="com.sonyericsson.extras.aef.control.SWIPE_EVENT" />
+        <action android:name="com.sonyericsson.extras.aef.control.OBJECT_CLICK_EVENT" />
+        <action android:name="com.sonyericsson.extras.aef.control.LIST_REFERESH_REQUEST" />
+        <action android:name="com.sonyericsson.extras.aef.control.LIST_REQUEST_ITEM" />
+        <action android:name="com.sonyericsson.extras.aef.control.LIST_ITEM_CLICK" />
+        <action android:name="com.sonyericsson.extras.aef.control.LIST_ITEM_SELECTED" />
+        <action android:name="com.sonyericsson.extras.aef.control.MENU_ITEM_SELECTED" />
+        <action android:name="com.sonyericsson.extras.aef.control.MENU_SHOW" />
+      </intent-filter>
+    </receiver>
 
   </application>
 
