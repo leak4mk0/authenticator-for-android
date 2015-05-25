@@ -50,7 +50,7 @@ import java.util.TimerTask;
 public class WatchControlExtension extends ControlExtension {
   private static final String TAG = "WatchControlExtension";
 
-  private static final boolean DEBUG = true;
+  private static final boolean DEBUG = false;
 
   private static final int TOTP_TIMER_PERIOD = 1000;
 
